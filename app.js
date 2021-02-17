@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const ejsMate = require('ejs-mate');
 const path = require('path');
+const flash = require('connect-flash');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
@@ -10,6 +11,7 @@ const session = require('express-session');
 
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
+const { nextTick } = require('process');
 
 const sessionConfig = {
     secret: 'wachSecret',
@@ -47,7 +49,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(session(sessionConfig));
-
+app.use(flash())
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.get('/', (req, res) => {
     res.send('Homepage to Campgrounds');
