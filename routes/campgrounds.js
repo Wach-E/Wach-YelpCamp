@@ -24,6 +24,11 @@ router.get('/', catchAsync(async (req, res) => {
 
 //New Campground
 router.get('/new', catchAsync(async (req, res) => {
+    // BUG OCCURS HERE
+    if (!req.isAuthenticated()) {
+        req.flash('error', 'You must be signed in!')
+        res.redirect('/login')
+    }
     res.render('campgrounds/new');
 }));
 
