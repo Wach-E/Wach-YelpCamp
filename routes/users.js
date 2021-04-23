@@ -26,15 +26,10 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 })
 
-const passportAuth = (req, res, next) => {
-    passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' })
-    next()
-}
-
-router.post('/login', passportAuth, (req, res) => {
-    req.flash('success', 'Welcome back!')
-    res.redirect('/campgrounds')
-})
-
+router.post('/login',
+    passport.authenticate('local'),
+    function (req, res) {
+        res.redirect('/campgrounds');
+    });
 
 module.exports = router;

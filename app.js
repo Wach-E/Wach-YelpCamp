@@ -52,6 +52,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+
 app.use(session(sessionConfig));
 app.use(flash())
 
@@ -65,6 +66,7 @@ passport.deserializeUser(User.deserializeUser())    //this shows how to get a us
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+    // res.locals.isAuthenticated = req.isAuthenticated();
     next();
 })
 

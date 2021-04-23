@@ -22,13 +22,18 @@ router.get('/', catchAsync(async (req, res) => {
     res.render('campgrounds/index', { campgrounds });
 }));
 
-//New Campground
-router.get('/new', catchAsync(async (req, res) => {
-    // BUG OCCURS HERE
+const loggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.flash('error', 'You must be signed in!')
         return res.redirect('/login')
     }
+    else {
+        next()
+    }
+};
+
+//New Campground
+router.get('/new', loggedIn, catchAsync(async (req, res) => {
     res.render('campgrounds/new');
 }));
 
