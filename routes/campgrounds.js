@@ -4,6 +4,7 @@ const ExpressError = require('../utils/ExpressError');
 const catchAsync = require('../utils/catchAsync');
 const Campground = require('../models/campground');
 const { campgroundSchema } = require('../schemas');
+const { isLoggedIn } = require('../middleware');
 
 // Server-side validations for Campgrounds
 const validateCampground = (req, res, next) => {
@@ -22,23 +23,13 @@ router.get('/', catchAsync(async (req, res) => {
     res.render('campgrounds/index', { campgrounds });
 }));
 
-const loggedIn = (req, res, next) => {
-    if (!req.isAuthenticated()) {
-        req.flash('error', 'You must be signed in!')
-        return res.redirect('/login')
-    }
-    else {
-        next()
-    }
-};
-
 //New Campground
-router.get('/new', loggedIn, catchAsync(async (req, res) => {
+router.get('/new', isLoggedIn, catchAsync(async (req, res) => {
     res.render('campgrounds/new');
 }));
 
 
-router.post('/', validateCampground, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const newCamp = new Campground(req.body.campground);
     await newCamp.save();
     console.log(newCamp.id);
@@ -47,7 +38,7 @@ router.post('/', validateCampground, catchAsync(async (req, res) => {
 }));
 
 //Edit Campground
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
     if (!campground) {
@@ -57,7 +48,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
     res.render('campgrounds/edit', { campground });
 }));
 
-router.put('/:id', validateCampground, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const data = req.body;
     const { id } = req.params;
     const updateCamp = await Campground.findByIdAndUpdate(id, { ...data.campground }, { runValidators: true, new: true });

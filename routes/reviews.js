@@ -5,6 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 const Campground = require('../models/campground');
 const Review = require('../models/review');
 const { reviewSchema } = require('../schemas');
+const { isLoggedIn } = require('../middleware');
 
 // Server-side validations for Reviews
 const validateReview = (req, res, next) => {
@@ -19,7 +20,7 @@ const validateReview = (req, res, next) => {
 
 // Reviews Routes
 
-router.post('/', validateReview, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review)
