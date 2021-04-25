@@ -52,7 +52,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 app.use(session(sessionConfig));
 app.use(flash())
 
@@ -66,7 +65,6 @@ passport.deserializeUser(User.deserializeUser())    //this shows how to get a us
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    // res.locals.isAuthenticated = req.isAuthenticated();
     next();
 })
 
@@ -79,7 +77,6 @@ app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 //Response to unnavailable routes
-
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
 })
