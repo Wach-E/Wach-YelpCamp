@@ -57,15 +57,19 @@ app.use(flash())
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate())) // use local strategy to authenticate a user
-passport.serializeUser(User.serializeUser())    // this shows how to get a user to a session
-passport.deserializeUser(User.deserializeUser())    //this shows how to get a user out of a session
-
 app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next();
 })
+
+
+passport.use(new LocalStrategy(User.authenticate())) // use local strategy to authenticate a user
+passport.serializeUser(User.serializeUser())    // this shows how to get a user to a session
+passport.deserializeUser(User.deserializeUser())    //this shows how to get a user out of a session
+
+
 
 app.get('/', (req, res) => {
     res.send('Homepage to Campgrounds');
