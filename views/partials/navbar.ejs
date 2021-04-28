@@ -16,8 +16,10 @@
                     <a class="nav-link" href="/login">Login</a>
                     <a class="nav-link" href="/register">Sign Up</a>
                     <% } else {%>
-                        <a class="nav-link" href="/logout">Logout</a>
-                        <% } %>
+                        <!-- Work on displaying this username -->
+                        <%= currentUser.username %>
+                            <a class="nav-link" href="/logout">Logout</a>
+                            <% } %>
             </div>
         </div>
     </div>
