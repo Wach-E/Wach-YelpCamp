@@ -28,4 +28,5 @@ CampgroundSchema.post('findOnseAndDelete', async function (doc) {
         })
     }
 })
+
 module.exports = mongoose.model('Campground', CampgroundSchema);
