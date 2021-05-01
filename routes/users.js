@@ -11,7 +11,6 @@ router.route('/register')
 router.route('/login')
     .get(users.loginForm)
     .post(passport.authenticate('local', {
-        successRedirect: '/',
         failureRedirect: '/login',
         failureFlash: true
     }), users.loginUser)
