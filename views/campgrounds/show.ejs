@@ -3,43 +3,60 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card mb-2">
-                <% for( let img of campground.images ) { %>
-                    <img src="<%= img.url%>" class="card-img-top" alt="<%= campground.title %> Image">
-                    <% } %>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= campground.title %>
-                            </h5>
-                            <p class="card-text">
-                                <%= campground.description %>
-                            </p>
+            <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <% campground.images.forEach((img, i)=> { %>
+                        <div class="carousel-item <%= i === 0 ? 'active' : "" %>">
+                            <img src="<%= img.url%>" class="d-block w-100" alt="">
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item text-muted">
-                                <%= campground.location %>
-                            </li>
-                            <li class="list-group-item">
-                                Submitted by: <%= campground.author.username %>
-                            </li>
-                            <li class="list-group-item">$<%= campground.price %>/night</li>
-                        </ul>
-                        <% if (currentUser && campground.author.equals(currentUser._id)) { %>
-                            <div class="card-body">
-                                <a href="/campgrounds/<%= campground._id  %>/edit"
-                                    class="card-link btn btn-primary">Edit
-                                    <%= campground.title %>
-                                </a>
-                                <form class="d-inline" action="/campgrounds/<%= campground._id  %>?_method=DELETE"
-                                    method="POST">
-                                    <button class="card-link btn btn-danger">Delete <%= campground.title %></button>
-                                </form>
-                            </div>
-                            <% } %>
+                        <% }) %>
+                </div>
+                <% if (campground.images.length> 1) { %>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#campgroundCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#campgroundCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                    <% } %>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= campground.title %>
+                    </h5>
+                    <p class="card-text">
+                        <%= campground.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        <%= campground.location %>
+                    </li>
+                    <li class="list-group-item">
+                        Submitted by: <%= campground.author.username %>
+                    </li>
+                    <li class="list-group-item">$<%= campground.price %>/night</li>
+                </ul>
+                <% if (currentUser && campground.author.equals(currentUser._id)) { %>
+                    <div class="card-body">
+                        <a href="/campgrounds/<%= campground._id  %>/edit" class="card-link btn btn-primary">Edit
+                            <%= campground.title %>
+                        </a>
+                        <form class="d-inline" action="/campgrounds/<%= campground._id  %>?_method=DELETE"
+                            method="POST">
+                            <button class="card-link btn btn-danger">Delete <%= campground.title %></button>
+                        </form>
+                    </div>
+                    <% } %>
 
-                                <div class="card-footer text-muted">
-                                    2 days ago
-                                </div>
+                        <div class="card-footer text-muted">
+                            2 days ago
+                        </div>
 
             </div>
         </div>
