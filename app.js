@@ -22,7 +22,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 
 const sessionConfig = {
-    secret: 'wachSecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
