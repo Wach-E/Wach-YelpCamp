@@ -10,6 +10,9 @@ ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/h_100,w_100')
 });
 
+// Tell mongoose to retrieve virtuals when converted to JSON
+const opts = { toJSON: { virtuals: true } };
+
 const CampgroundSchema = new Schema({
     title: String,
     images: [ImageSchema],
@@ -37,6 +40,14 @@ const CampgroundSchema = new Schema({
             ref: 'Review'
         }
     ]
+}, opts);
+
+CampgroundSchema.virtual('properties').get(function () {
+    return {
+        id: this._id,
+        title: this.title,
+        description: this.description
+    }
 });
 
 CampgroundSchema.post('findOnseAndDelete', async function (doc) {
