@@ -3,10 +3,12 @@ const camp = JSON.parse(campground);
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
     container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/outdoors-v11', // style URL
+    style: 'mapbox://styles/mapbox/navigation-preview-day-v4', // style URL
     center: camp.geometry.coordinates, // starting position [lng, lat]
     zoom: 5 // starting zoom
 });
+
+map.addControl(new mapboxgl.NavigationControl());
 
 // Create a marker and add it to the map.
 new mapboxgl.Marker()
