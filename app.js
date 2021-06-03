@@ -9,6 +9,7 @@ const ejsMate = require('ejs-mate');
 const path = require('path');
 const flash = require('connect-flash');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
 const session = require('express-session');
@@ -24,9 +25,14 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
+const db_url = process.env.DB_URL;
+
 const sessionConfig = {
-    name: 'case',
     secret: process.env.SESSION_SECRET,
+    store: MongoStore.create({
+        mongoUrl: db_url,
+        touchAfter: 24 * 3600 // time period in seconds
+    }),
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -36,7 +42,7 @@ const sessionConfig = {
     }
 };
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect(db_url, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
