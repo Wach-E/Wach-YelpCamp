@@ -1,8 +1,8 @@
 # Wach-YelpCamp
 
-## :construction: This is a NodeApp currently undergoing construction.
+This is a simple CRUD app where users showcase various campgrounds based on location. The basic knowledge of fullstack web development were implemented with core emphasis on back-end web development.
 
-I am currently putting my knowledge of Fullstack web development to practise here. The proper Readme documentation will be done soon but you can still go through my work and give me your best feedback when the repo deployment link has been made available.
+If you'll love to make this app better, please do well to create an issue and a pull request for it.
 
-[Here are the files undergoing this construction :relaxed:](https://github.com/Wach-E/Wach-YelpCamp/tree/master)
+[Wach-Yelpcamp :relaxed:](https://wach-yelpcamp.herokuapp.com/)
 
