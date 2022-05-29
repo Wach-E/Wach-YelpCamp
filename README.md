@@ -1,6 +1,6 @@
 # Wach-YelpCamp
 
-This is a simple CRUD app where users showcase various campgrounds based on location. The basic knowledge of fullstack web development were implemented with core emphasis on back-end web development.
+Yelpcamp is a full-stack web application designed to allow lovers of campgrounds to find and post locations for camping. It implements geo-coding to help locate the exact location of such a campground
 
 If you'll love to make this app better, please do well to create an issue and a pull request for it.
 
