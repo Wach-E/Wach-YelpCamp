@@ -4,5 +4,4 @@ Yelpcamp is a full-stack web application designed to allow lovers of campgrounds
 
 If you'll love to make this app better, please do well to create an issue and a pull request for it.
 
-[Wach-Yelpcamp :relaxed:](https://wach-yelpcamp.herokuapp.com/)
 
